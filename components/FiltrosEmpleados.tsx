@@ -1,15 +1,16 @@
-"use client";
+"use client"; // "Este componente debe renderizarse y ejecutarse del lado del cliente"
+// Permite usar useEffect, onClick, onChange, etc.
 
 import { Departamento } from "@/types/empleado";
 
-type Props = {
-  busqueda: string;
-  departamento: string;
-  onBusquedaChange: (valor: string) => void;
-  onDepartamentoChange: (valor: string) => void;
+type Props = { // propiedades que recibirá el componente:
+  busqueda: string; // un texto de busqueda
+  departamento: string; // un departamento seleccionado
+  onBusquedaChange: (valor: string) => void; // una función para cambiar la busqueda
+  onDepartamentoChange: (valor: string) => void; // una función para cambiar el departamento
 };
 
-const departamentos: Departamento[] = [
+const departamentos: Departamento[] = [ // este arreglo contiene elementos del tipo Departamento
   "Tecnologia",
   "Recursos Humanos",
   "Administración",
@@ -18,26 +19,30 @@ const departamentos: Departamento[] = [
   "Operaciones",
 ];
 
+// función que devuelve JSX. En React, los componentes son funciones.
+// {busqueda, departamento, onBusquedaChange, onDepartamentoChange}: Props es "destructuring".
+// Sino, se escribiria: function FiltrosEmpleados(props: Props) 
+// y luego las cosas se llamarian como props.busqueda, props.departamento, etc.
 export default function FiltrosEmpleados({busqueda, departamento, onBusquedaChange, onDepartamentoChange}: Props) {
-  return (
+  return ( // comienza el JSX:
     <div className="flex flex-col sm:flex-row gap-3 mb-6">
       {/*Buscador por nombre*/}
       <input
-        type="text"
-        placeholder="Buscar por nombre o cargo..."
-        value = {busqueda}
-        onChange={(e) => onBusquedaChange(e.target.value)}
+        type="text" // campo de texto común
+        placeholder="Buscar por nombre o cargo..." // texto gris que aparece cuando el campo está vacío
+        value = {busqueda} // el valor que se va a buscar
+        onChange={(e) => onBusquedaChange(e.target.value)} // Por si mismo, no cambia nada. Dice "el usuario escribio: <e.target.value>"
         className="flex-1 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       {/*Filtro por departamento*/}
-      <select
-        value={departamento}
-        onChange={(e) => onDepartamentoChange(e.target.value)}
+      <select // desplegable HTML
+        value={departamento} // valor seleccionado depende de la variable: departamento
+        onChange={(e) => onDepartamentoChange(e.target.value)} // cuando elegis un dpto. ejecuta onDepartamentoChange(<eleccion>)
         className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">Todos los departamentos</option>
-        {departamentos.map((dep) => (
-          <option key={dep} value={dep}>
+        <option value="">Todos los departamentos</option> // opcion por defecto
+        {departamentos.map((dep) => ( // map() recorre cada elemento del array de departamentos para mostrarlo en la lista para elegir
+          <option key={dep} value={dep}> // key es la forma de identificar cada elemento dentro de un map(). En este caso, como cada nombre de los dpto. es unico, usamos eso.
             {dep}
           </option>
         ))}
