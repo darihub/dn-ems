@@ -40,9 +40,9 @@ export default function FiltrosEmpleados({busqueda, departamento, onBusquedaChan
         onChange={(e) => onDepartamentoChange(e.target.value)} // cuando elegis un dpto. ejecuta onDepartamentoChange(<eleccion>)
         className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">Todos los departamentos</option> // opcion por defecto
+        <option value="">Todos los departamentos</option> {/*opcion por defecto*/}
         {departamentos.map((dep) => ( // map() recorre cada elemento del array de departamentos para mostrarlo en la lista para elegir
-          <option key={dep} value={dep}> // key es la forma de identificar cada elemento dentro de un map(). En este caso, como cada nombre de los dpto. es unico, usamos eso.
+          <option key={dep} value={dep}> {/*key es la forma de identificar cada elemento dentro de un map(). En este caso, como cada nombre de los dpto. es unico, usamos eso.*/}
             {dep}
           </option>
         ))}

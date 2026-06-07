@@ -54,7 +54,7 @@ export default function BotonEliminar({id, nombre, onEliminado}: Props) { // Exp
         disabled={cargando} // mientras se está borrando el empleado, se deshabilita el botón
         className="text-white bg-red-600 hover:bg-red-700 px-2 py-1 rounded text-sm disabled:opacity-50"
       >
-        {cargando ? "..." : "Si"} // si está borrandose, botón = "..." | si aún no elegimos Si o No, botón = "Si"
+        {cargando ? "..." : "Si"} {/*si está borrandose, botón = "..." | si aún no elegimos Si o No, botón = "Si"*/}
       </button>
       <button
         onClick={() => setConfirmando(false)} // si tocas No, el botón vuelve a su estado anterior: "Eliminar" (el return anterior)
