@@ -32,9 +32,9 @@ export default function TablaEmpleados({empleados, onEliminado, esAdmin}: Props)
   return ( // Si hay empleados cargados:
     <div className="overflow-x-auto rounded-lg border border-gray-200">
       <table className="min-w-full divide-y divide-gray-200">  {/*table define la tabla entera*/}
-        <thead className="bg-gray-50"> {/*Representa la cabecera de la tabla*/}
-          <tr>
-            {["Nombre", "Cargo", "Departamento", "Email", "Estado", "Acciones"].map((col) => (
+        <thead className="bg-gray-50"> {/*Representa la cabecera de la tabla; La fila con los encabezados.*/}
+          <tr> {/*Fila de la tabla. Cada fila necesita un <tr>*/}
+            {["Nombre", "Cargo", "Departamento", "Email", "Estado", "Acciones"].map((col) => ( // .map(col) llena con los datos automaticamente
                 <th
                   key={col}
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -59,7 +59,7 @@ export default function TablaEmpleados({empleados, onEliminado, esAdmin}: Props)
                 </span>
               </td>
               <td className="px-6 py-4 text-sm">
-                {esAdmin ? (
+                {esAdmin ? ( // Si el usuario es admin, ve el botón de editar:
                   <div className="flex items-center gap-4">
                     <Link href={`/empleados/${emp.id}`}
                       className="text-blue-600 hover:text-blue-800 font-medium"
@@ -72,7 +72,7 @@ export default function TablaEmpleados({empleados, onEliminado, esAdmin}: Props)
                       onEliminado={onEliminado}
                     />
                   </div>
-                  ) : (
+                  ) : ( // Si no es admin, ve el botón de ver:
                     <Link
                       href={`/empleados/${emp.id}`}
                       className="text-blue-600 hover:text-blue-800 font-medium"
