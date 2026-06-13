@@ -39,6 +39,7 @@ export default function PaginaEmpleados() {
     const coincideBusqueda = emp.nombre.toLowerCase().includes(busqueda.toLowerCase()) || emp.cargo.toLowerCase().includes(busqueda.toLowerCase());
     // includes significa que incluye al menos una parte de lo que se busca. Es decir, si buscas "Juan", busqueda tiene parte de "Juan Perez".
     const coincideDepto = departamento === "" || emp.departamento === departamento;
+    // Si no se especifica un departamento, se muestran todos los empleados. Si se ingresa un dpto. se muestran solo los empleados de ese dpto.
 
     return coincideBusqueda && coincideDepto;
   });
