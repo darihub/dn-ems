@@ -53,6 +53,8 @@ export default function TablaEmpleados({empleados, onEliminado, esAdmin}: Props)
                 <div className="text-sm text-gray-500">{emp.telefono}</div>
               </td>
               <td className="px-6 py-4 text-sm text-gray-700">{emp.cargo}</td>
+              <td className="px-6 py-4 text-sm text-gray-700">{emp.departamento}</td>
+              <td className="px-6 py-4 text-sm text-gray-700">{emp.email}</td>
               <td className="px-6 py-4">
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${emp.activo ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>
                   {emp.activo ? "Activo" : "Inactivo"}
