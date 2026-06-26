@@ -1,7 +1,7 @@
 "use client";
 
 import {useState} from "react";
-import {useRouter} from "next/navigation";
+import {useRouter} from "next/navigation"; // PERMITE NAVEGAR Entre paginas
 import { EmpleadoNuevo, Empleado, Departamento } from "@/types/empleado";
 import { crearEmpleado, actualizarEmpleado } from "@/lib/empleados";
 
@@ -13,7 +13,7 @@ const departamentos: Departamento[] = [
   "Tecnologia", "Recursos Humanos", "Administración", "Ventas", "Marketing", "Operaciones",
 ];
 
-const campoVacio: EmpleadoNuevo = {
+const empleadoVacio: EmpleadoNuevo = { // objeto con valores iniciales
   nombre: "", email: "", cargo: "", telefono: "", departamento: "Tecnología", // revisar dps
   fechaIngreso: "", salario: 0, activo: true,
 };
@@ -29,7 +29,7 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
           cargo: empleadoInicial.cargo, departamento: empleadoInicial.departamento,
           fechaIngreso: empleadoInicial.fechaIngreso, salario: empleadoInicial.salario,
           activo: empleadoInicial.activo, telefono: empleadoInicial.telefono }
-      : campoVacio
+      : empleadoVacio
   );
 
   const [errores, setErrores] = useState<Partial<Record<keyof EmpleadoNuevo, string>>>({});
