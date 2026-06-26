@@ -5,6 +5,8 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Empleado } from "@/types/empleado";
 import FormularioEmpleado from "@/components/FormularioEmpleado";
+import RutaProtegida from "@/components/RutaProtegida";
+
 
 export default function PaginaEditarEmpleado({
   params,
@@ -24,6 +26,10 @@ export default function PaginaEditarEmpleado({
   }, [params.id]);
 
   if (!empleado) return <div className="p-8 text-gray-500">Cargando...</div>;
-
-  return <FormularioEmpleado empleadoInicial={empleado} />;
+  //Le agrege el RutaProtegida al Formulario
+  return(
+    <RutaProtegida soloAdmin={true}>
+        <FormularioEmpleado empleadoInicial={empleado} />
+    </RutaProtegida>
+  );
 }
