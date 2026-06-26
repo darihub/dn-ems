@@ -9,6 +9,7 @@ import {Empleado} from "@/types/empleado";
 import TablaEmpleados from "@/components/TablaEmpleados";
 import FiltrosEmpleados from "@/components/FiltrosEmpleados";
 import RutaProtegida from "@/components/RutaProtegida";
+import Spinner from "@/components/Spinner";
 
 export default function PaginaEmpleados() {
   const [empleados, setEmpleados] = useState<Empleado[]>([]); // guarda un array
@@ -66,9 +67,7 @@ export default function PaginaEmpleados() {
         <FiltrosEmpleados busqueda={busqueda} departamento={departamento} onBusquedaChange={setBusqueda} onDepartamentoChange={setDepartamento}/>
         {/* Tabla o estado de carga */}
         {cargando ? (
-          <div className="text-center py-16 text-gray-500">
-            Cargando empleados...
-          </div>
+          <Spinner texto="Cargando empleados espere un momento..." />
         ):(
           <TablaEmpleados empleados={empleadosFiltrados} onEliminado={cargarEmpleados} esAdmin={esAdmin}/>
         ) }

@@ -6,6 +6,7 @@ import { db } from "@/lib/firebase";
 import { Empleado } from "@/types/empleado";
 import FormularioEmpleado from "@/components/FormularioEmpleado";
 import RutaProtegida from "@/components/RutaProtegida";
+import Spinner from "@/components/Spinner";
 
 
 export default function PaginaEditarEmpleado({
@@ -25,7 +26,7 @@ export default function PaginaEditarEmpleado({
     cargar();
   }, [params.id]);
 
-  if (!empleado) return <div className="p-8 text-gray-500">Cargando...</div>;
+  if (!empleado) return <Spinner/>;
   //Le agrege el RutaProtegida al Formulario
   return(
     <RutaProtegida soloAdmin={true}>

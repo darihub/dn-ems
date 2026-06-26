@@ -5,6 +5,7 @@ import { getEmpleados } from "@/lib/empleados";
 import { Empleado, Departamento } from "@/types/empleado";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
+import Spinner from "@/components/Spinner";
 
 type EstadisticasDepto = {
   departamento: string;
@@ -25,7 +26,7 @@ export default function Dashboard() {
   }, [usuario]);
 
   if (cargandoAuth || cargando) {
-    return <div className="p-8 text-gray-500">Cargando...</div>;
+    return <Spinner/>;
   }
 
   if (!usuario) {
