@@ -4,6 +4,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { login } from "@/lib/auth";
+import {useEffect} from "react";
+import { useAuth } from "@/context/AuthContext";
+
 
 export default function PaginaLogin() {
   const router = useRouter();
@@ -11,6 +14,15 @@ export default function PaginaLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
+ const { usuario, cargando: cargandoAuth } = useAuth();
+
+
+  useEffect(() => {
+    if(!cargandoAuth && usuario){
+      router.push("/");
+    }
+  }, [usuario, cargandoAuth, router]);
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -26,6 +38,7 @@ export default function PaginaLogin() {
     }
   }
 
+  if(cargandoAuth|| usuario ) return null;
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 w-full max-w-md">
