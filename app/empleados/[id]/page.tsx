@@ -26,11 +26,15 @@ export default function PaginaEditarEmpleado({
     cargar();
   }, [params.id]);
 
-  if (!empleado) return <Spinner/>;
-  //Le agrege el RutaProtegida al Formulario
-  return(
+  if (!empleado) return (
+  <RutaProtegida soloAdmin={true}>
+    <Spinner />
+  </RutaProtegida>
+  );
+
+  return (
     <RutaProtegida soloAdmin={true}>
-        <FormularioEmpleado empleadoInicial={empleado} />
+      <FormularioEmpleado empleadoInicial={empleado} />
     </RutaProtegida>
   );
 }
