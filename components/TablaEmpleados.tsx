@@ -29,11 +29,16 @@ export default function TablaEmpleados({empleados, onEliminado, esAdmin}: Props)
     );
   }
 
+  //  {/*table define la tabla entera*/}
+  //  {/*Representa la cabecera de la tabla; La fila con los encabezados.*/}
+  //  {/*tr: Fila de la tabla. Cada fila necesita un <tr>*/}
+  // {/*tbody Contiene todas las filas con los datos reales*/}
+
   return ( // Si hay empleados cargados:
     <div className="overflow-x-auto rounded-lg border border-gray-200">
-      <table className="min-w-full divide-y divide-gray-200">  {/*table define la tabla entera*/}
-        <thead className="bg-gray-50"> {/*Representa la cabecera de la tabla; La fila con los encabezados.*/}
-          <tr> {/*Fila de la tabla. Cada fila necesita un <tr>*/}
+      <table className="min-w-full divide-y divide-gray-200">  
+        <thead className="bg-gray-50"> 
+          <tr> 
             {["Nombre", "Cargo", "Departamento", "Email", "Estado", "Acciones"].map((col) => ( // .map(col) llena con los datos automaticamente
                 <th
                   key={col}
@@ -45,7 +50,7 @@ export default function TablaEmpleados({empleados, onEliminado, esAdmin}: Props)
             )}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200"> {/*Contiene todas las filas con los datos reales*/}
+        <tbody className="bg-white divide-y divide-gray-200">
           {empleados.map((emp) => (
             <tr key={emp.id} className="hover:bg-gray-50 transition-colors">
               <td className="px-6 py-4 whitespace-nowrap">

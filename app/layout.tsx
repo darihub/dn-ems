@@ -8,7 +8,8 @@
     children: React.ReactNode;
   }) {
     return (
-      <html lang="es"> {/* Definimos idioma*/}
+      // {/* Definimos idioma*/}
+      <html lang="es"> 
         <body>
           <AuthProvider>
             <Navbar />
