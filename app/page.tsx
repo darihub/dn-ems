@@ -63,7 +63,7 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Dashboard</h1>
+      <h1 className="text-2xl font-bold text-white mb-6">Dashboard</h1>
 
       {/* Cards de resumen */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
