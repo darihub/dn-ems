@@ -8,6 +8,7 @@ import Notificacion from "./Notificacion";
 
 type Props = {
   empleadoInicial?: Empleado; // si viene es edición, si no es creación
+  soloLectura?: boolean; // permite ver el formulario a los usuarios no admin
 };
 
 const departamentos: Departamento[] = [
@@ -19,7 +20,7 @@ const empleadoVacio: EmpleadoNuevo = { // objeto con valores iniciales
   fechaIngreso: "", salario: 0, activo: true,
 };
 
-export default function FormularioEmpleado({empleadoInicial}: Props) {
+export default function FormularioEmpleado({empleadoInicial, soloLectura = false}: Props) {
   const router = useRouter();
   const esEdicion = !!empleadoInicial; // !! convierte valor (empleadoInicial) a booleano.
   const [notificacion, setNotificacion] = useState<{
@@ -103,7 +104,9 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
               Nombre completo *
             </label>
             <input name="nombre" value={form.nombre} onChange={handleChange}
-              className={inputClass} placeholder="Ana García" />
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`} 
+              placeholder="Ana García"
+              readOnly = {soloLectura} />
             {errores.nombre && <p className={errorClass}>{errores.nombre}</p>}
           </div>
 
@@ -113,7 +116,9 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
               Email *
             </label>
             <input name="email" type="email" value={form.email} onChange={handleChange}
-              className={inputClass} placeholder="ana@empresa.com" />
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`} 
+              placeholder="ana@empresa.com"
+              readOnly = {soloLectura} />
             {errores.email && <p className={errorClass}>{errores.email}</p>}
           </div>
 
@@ -123,7 +128,9 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
               Cargo *
             </label>
             <input name="cargo" value={form.cargo} onChange={handleChange}
-              className={inputClass} placeholder="Desarrolladora" />
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`} 
+              placeholder="Desarrolladora"
+              readOnly = {soloLectura} />
             {errores.cargo && <p className={errorClass}>{errores.cargo}</p>}
           </div>
 
@@ -133,7 +140,8 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
               Departamento *
             </label>
             <select name="departamento" value={form.departamento} onChange={handleChange}
-              className={`${inputClass} bg-white`}>
+            disabled = {soloLectura} 
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`} >
               {departamentos.map((d) => (
                 <option key={d} value={d}>{d}</option>
               ))}
@@ -146,7 +154,10 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
               Fecha de ingreso *
             </label>
             <input name="fechaIngreso" type="date" value={form.fechaIngreso}
-              onChange={handleChange} className={inputClass} />
+              onChange={handleChange} 
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`}
+              readOnly = {soloLectura}
+              placeholder = "MM/DD/AAAA"  />
             {errores.fechaIngreso && <p className={errorClass}>{errores.fechaIngreso}</p>}
           </div>
 
@@ -156,7 +167,10 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
               Salario *
             </label>
             <input name="salario" type="number" value={form.salario}
-              onChange={handleChange} className={inputClass} min={0} />
+              onChange={handleChange} 
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed " : ""}`}
+              readOnly = {soloLectura}
+              min={0} />
             {errores.salario && <p className={errorClass}>{errores.salario}</p>}
           </div>
 
@@ -166,13 +180,16 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
               Teléfono
             </label>
             <input name="telefono" value={form.telefono ?? ""} onChange={handleChange}
-              className={inputClass} placeholder="+54 11 1234-5678" />
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`}  
+              placeholder="+54 11 1234-5678"
+              readOnly = {soloLectura} />
           </div>
 
           {/* Activo */}
           <div className="flex items-center gap-2 mt-6">
             <input name="activo" type="checkbox" checked={form.activo}
-              onChange={handleChange} className="w-4 h-4 accent-blue-600" />
+              onChange={handleChange} className={`${inputClass} ${soloLectura ? "w-4 h-4 accent-blue-600" : ""}`}
+              readOnly = {soloLectura}  />
             <label className="text-sm font-medium text-gray-700">
               Empleado activo
             </label>
@@ -180,18 +197,31 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
         </div>
 
         {/* Botones */}
-        <div className="flex gap-3 mt-8">
-          <button type="submit" disabled={guardando}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 
-                      rounded-lg font-medium disabled:opacity-50 transition-colors">
-            {guardando ? "Guardando..." : esEdicion ? "Guardar cambios" : "Crear empleado"}
-          </button>
-          <button type="button" onClick={() => router.back()}
-            className="border border-gray-300 text-gray-700 hover:bg-gray-50 
-                      px-6 py-2 rounded-lg font-medium transition-colors">
-            Cancelar
-          </button>
-        </div>
+        {!soloLectura && (
+          <div className="flex gap-3 mt-8">
+            <button type="submit" disabled={guardando}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 
+                        rounded-lg font-medium disabled:opacity-50 transition-colors">
+              {guardando ? "Guardando..." : esEdicion ? "Guardar cambios" : "Crear empleado"}
+            </button>
+            <button type="button" onClick={() => router.back()}
+              className="border border-gray-300 text-gray-700 hover:bg-gray-50 
+                        px-6 py-2 rounded-lg font-medium transition-colors">
+              Cancelar
+            </button>
+          </div>
+        )}
+        {/*Si es solo lectura, mostrar boton de volver simple */}
+        {soloLectura && (
+          <div className="mt-8">
+            <button type="button" onClick={() => router.back()}
+              className="border border-gray-300 text-gray-700 hover:bg-gray-50 
+                        px-6 py-2 rounded-lg font-medium transition-colors">
+              Volver
+            </button>
+          </div>
+        )}
+
       </form>
   </>
   );
