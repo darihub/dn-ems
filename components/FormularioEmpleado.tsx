@@ -4,6 +4,7 @@ import {useState} from "react";
 import {useRouter} from "next/navigation"; // PERMITE NAVEGAR Entre paginas
 import { EmpleadoNuevo, Empleado, Departamento } from "@/types/empleado";
 import { crearEmpleado, actualizarEmpleado } from "@/lib/empleados";
+import Notificacion from "./Notificacion";
 
 type Props = {
   empleadoInicial?: Empleado; // si viene es edición, si no es creación
@@ -21,6 +22,10 @@ const empleadoVacio: EmpleadoNuevo = { // objeto con valores iniciales
 export default function FormularioEmpleado({empleadoInicial}: Props) {
   const router = useRouter();
   const esEdicion = !!empleadoInicial; // !! convierte valor (empleadoInicial) a booleano.
+  const [notificacion, setNotificacion] = useState<{
+    mensaje: string;
+    tipo: "exito" | "error";
+  } | null>(null);
 
   // Si hay empleadoInicial, usamos sus datos. Si no, el formulario vacío.
   const [form, setForm] = useState<EmpleadoNuevo>(
@@ -68,9 +73,10 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
       } else {
         await crearEmpleado(form);
       }
-      router.push("/empleados");
+      setNotificacion({ mensaje: "Empleado guardado correctamente", tipo: "exito" });
+      setTimeout(() => router.push("/empleados"), 1500); // Redirige después de mostrar el mensaje
     } catch (error) {
-      console.error("Error guardando empleado:", error);
+      setNotificacion({ mensaje: "Error al guardar. Intentá de nuevo.", tipo: "error" });
     } finally {
       setGuardando(false);
     }
@@ -81,107 +87,112 @@ export default function FormularioEmpleado({empleadoInicial}: Props) {
   const errorClass = "text-red-500 text-xs mt-1";
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">
-        {esEdicion ? "Editar empleado" : "Nuevo empleado"}
-      </h1>
+    <>
+      {notificacion && (
+        <Notificacion mensaje={notificacion.mensaje} tipo={notificacion.tipo} onCerrar={() => setNotificacion(null)}/>
+      )}
+      <form onSubmit={handleSubmit} className="max-w-2xl mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">
+          {esEdicion ? "Editar empleado" : "Nuevo empleado"}
+        </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Nombre */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Nombre completo *
-          </label>
-          <input name="nombre" value={form.nombre} onChange={handleChange}
-            className={inputClass} placeholder="Ana García" />
-          {errores.nombre && <p className={errorClass}>{errores.nombre}</p>}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Nombre */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Nombre completo *
+            </label>
+            <input name="nombre" value={form.nombre} onChange={handleChange}
+              className={inputClass} placeholder="Ana García" />
+            {errores.nombre && <p className={errorClass}>{errores.nombre}</p>}
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email *
+            </label>
+            <input name="email" type="email" value={form.email} onChange={handleChange}
+              className={inputClass} placeholder="ana@empresa.com" />
+            {errores.email && <p className={errorClass}>{errores.email}</p>}
+          </div>
+
+          {/* Cargo */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Cargo *
+            </label>
+            <input name="cargo" value={form.cargo} onChange={handleChange}
+              className={inputClass} placeholder="Desarrolladora" />
+            {errores.cargo && <p className={errorClass}>{errores.cargo}</p>}
+          </div>
+
+          {/* Departamento */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Departamento *
+            </label>
+            <select name="departamento" value={form.departamento} onChange={handleChange}
+              className={`${inputClass} bg-white`}>
+              {departamentos.map((d) => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Fecha de ingreso */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Fecha de ingreso *
+            </label>
+            <input name="fechaIngreso" type="date" value={form.fechaIngreso}
+              onChange={handleChange} className={inputClass} />
+            {errores.fechaIngreso && <p className={errorClass}>{errores.fechaIngreso}</p>}
+          </div>
+
+          {/* Salario */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Salario *
+            </label>
+            <input name="salario" type="number" value={form.salario}
+              onChange={handleChange} className={inputClass} min={0} />
+            {errores.salario && <p className={errorClass}>{errores.salario}</p>}
+          </div>
+
+          {/* Teléfono */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Teléfono
+            </label>
+            <input name="telefono" value={form.telefono ?? ""} onChange={handleChange}
+              className={inputClass} placeholder="+54 11 1234-5678" />
+          </div>
+
+          {/* Activo */}
+          <div className="flex items-center gap-2 mt-6">
+            <input name="activo" type="checkbox" checked={form.activo}
+              onChange={handleChange} className="w-4 h-4 accent-blue-600" />
+            <label className="text-sm font-medium text-gray-700">
+              Empleado activo
+            </label>
+          </div>
         </div>
 
-        {/* Email */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Email *
-          </label>
-          <input name="email" type="email" value={form.email} onChange={handleChange}
-            className={inputClass} placeholder="ana@empresa.com" />
-          {errores.email && <p className={errorClass}>{errores.email}</p>}
+        {/* Botones */}
+        <div className="flex gap-3 mt-8">
+          <button type="submit" disabled={guardando}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 
+                      rounded-lg font-medium disabled:opacity-50 transition-colors">
+            {guardando ? "Guardando..." : esEdicion ? "Guardar cambios" : "Crear empleado"}
+          </button>
+          <button type="button" onClick={() => router.back()}
+            className="border border-gray-300 text-gray-700 hover:bg-gray-50 
+                      px-6 py-2 rounded-lg font-medium transition-colors">
+            Cancelar
+          </button>
         </div>
-
-        {/* Cargo */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Cargo *
-          </label>
-          <input name="cargo" value={form.cargo} onChange={handleChange}
-            className={inputClass} placeholder="Desarrolladora" />
-          {errores.cargo && <p className={errorClass}>{errores.cargo}</p>}
-        </div>
-
-        {/* Departamento */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Departamento *
-          </label>
-          <select name="departamento" value={form.departamento} onChange={handleChange}
-            className={`${inputClass} bg-white`}>
-            {departamentos.map((d) => (
-              <option key={d} value={d}>{d}</option>
-            ))}
-          </select>
-        </div>
-
-        {/* Fecha de ingreso */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Fecha de ingreso *
-          </label>
-          <input name="fechaIngreso" type="date" value={form.fechaIngreso}
-            onChange={handleChange} className={inputClass} />
-          {errores.fechaIngreso && <p className={errorClass}>{errores.fechaIngreso}</p>}
-        </div>
-
-        {/* Salario */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Salario *
-          </label>
-          <input name="salario" type="number" value={form.salario}
-            onChange={handleChange} className={inputClass} min={0} />
-          {errores.salario && <p className={errorClass}>{errores.salario}</p>}
-        </div>
-
-        {/* Teléfono */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Teléfono
-          </label>
-          <input name="telefono" value={form.telefono ?? ""} onChange={handleChange}
-            className={inputClass} placeholder="+54 11 1234-5678" />
-        </div>
-
-        {/* Activo */}
-        <div className="flex items-center gap-2 mt-6">
-          <input name="activo" type="checkbox" checked={form.activo}
-            onChange={handleChange} className="w-4 h-4 accent-blue-600" />
-          <label className="text-sm font-medium text-gray-700">
-            Empleado activo
-          </label>
-        </div>
-      </div>
-
-      {/* Botones */}
-      <div className="flex gap-3 mt-8">
-        <button type="submit" disabled={guardando}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 
-                     rounded-lg font-medium disabled:opacity-50 transition-colors">
-          {guardando ? "Guardando..." : esEdicion ? "Guardar cambios" : "Crear empleado"}
-        </button>
-        <button type="button" onClick={() => router.back()}
-          className="border border-gray-300 text-gray-700 hover:bg-gray-50 
-                     px-6 py-2 rounded-lg font-medium transition-colors">
-          Cancelar
-        </button>
-      </div>
-    </form>
+      </form>
+  </>
   );
 }
