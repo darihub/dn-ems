@@ -10,6 +10,8 @@ import TablaEmpleados from "@/components/TablaEmpleados";
 import FiltrosEmpleados from "@/components/FiltrosEmpleados";
 import RutaProtegida from "@/components/RutaProtegida";
 import Spinner from "@/components/Spinner";
+import {useAuth, AuthProvider} from "@/context/AuthContext";
+
 
 export default function PaginaEmpleados() {
   const [empleados, setEmpleados] = useState<Empleado[]>([]); // guarda un array
@@ -17,7 +19,8 @@ export default function PaginaEmpleados() {
   const [busqueda, setBusqueda] = useState(""); // guarda un string.
   const [departamento, setDepartamento] = useState(""); // guarda un string.
 
-  const esAdmin = true; // hardcodeo temporal, hasta implementar roles
+  const { rol } = useAuth();
+  const esAdmin = rol === "admin";
 
   async function cargarEmpleados() { // Función async permite que React siga funcionando mientras espera la respuesta.
     setCargando(true); // hace que cargando = true. Esconde la tabla de empleados y muestra el html de "Cargando empleados..."
