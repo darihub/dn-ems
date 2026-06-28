@@ -25,8 +25,12 @@ export async function logout(): Promise<void> {
 // Firebase Auth guarda email y uid, pero NO el rol
 // El rol lo guardamos nosotros en Firestore
 export async function getRolUsuario(uid: string): Promise<Rol> {
+  console.log("Buscando rol para UID:", uid); // ← agregar
   const docRef = doc(db, "usuarios", uid);
   const docSnap = await getDoc(docRef);
+
+  console.log("Documento existe:", docSnap.exists()); // ← agregar
+  console.log("Datos:", docSnap.data()); // ← agregar
 
   if (docSnap.exists()) {
     return docSnap.data().rol as Rol;
