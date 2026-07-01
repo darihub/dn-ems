@@ -34,6 +34,10 @@ export default function Navbar(){
             <Link href="/empleados" className="text-sm text-gray-600 hover:text-gray-900">
               Empleados
             </Link>
+            {rol === "admin" && (
+              <Link href="/usuarios" className="text-sm text-gray-600 hover:text-gray-900">
+                Usuarios
+              </Link>)}
             <div className="flex items-center gap-3">
               <span className="text-sm text-gray-500">{usuario.email}</span>
               {/* Badge de rol */}
