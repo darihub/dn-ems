@@ -100,11 +100,11 @@ export default function FormularioEmpleado({empleadoInicial, soloLectura = false
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Nombre */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Nombre completo *
             </label>
             <input name="nombre" value={form.nombre} onChange={handleChange}
-              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`} 
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-400 cursor-not-allowed bg-white" : "bg-white"}`} 
               placeholder="Ana García"
               readOnly = {soloLectura} />
             {errores.nombre && <p className={errorClass}>{errores.nombre}</p>}
@@ -112,11 +112,11 @@ export default function FormularioEmpleado({empleadoInicial, soloLectura = false
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Email *
             </label>
             <input name="email" type="email" value={form.email} onChange={handleChange}
-              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`} 
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-400 cursor-not-allowed bg-white" : "bg-white"}`} 
               placeholder="ana@empresa.com"
               readOnly = {soloLectura} />
             {errores.email && <p className={errorClass}>{errores.email}</p>}
@@ -124,11 +124,11 @@ export default function FormularioEmpleado({empleadoInicial, soloLectura = false
 
           {/* Cargo */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Cargo *
             </label>
             <input name="cargo" value={form.cargo} onChange={handleChange}
-              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`} 
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-400 cursor-not-allowed bg-white" : "bg-white"}`} 
               placeholder="Desarrolladora"
               readOnly = {soloLectura} />
             {errores.cargo && <p className={errorClass}>{errores.cargo}</p>}
@@ -136,12 +136,12 @@ export default function FormularioEmpleado({empleadoInicial, soloLectura = false
 
           {/* Departamento */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Departamento *
             </label>
             <select name="departamento" value={form.departamento} onChange={handleChange}
             disabled = {soloLectura} 
-              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`} >
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-400 cursor-not-allowed bg-white" : "bg-white"}`} >
               {departamentos.map((d) => (
                 <option key={d} value={d}>{d}</option>
               ))}
@@ -150,25 +150,24 @@ export default function FormularioEmpleado({empleadoInicial, soloLectura = false
 
           {/* Fecha de ingreso */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Fecha de ingreso *
             </label>
             <input name="fechaIngreso" type="date" value={form.fechaIngreso}
               onChange={handleChange} 
-              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`}
-              readOnly = {soloLectura}
-              placeholder = "MM/DD/AAAA"  />
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-400 cursor-not-allowed bg-white" : "bg-white"}`}
+              readOnly = {soloLectura}  />
             {errores.fechaIngreso && <p className={errorClass}>{errores.fechaIngreso}</p>}
           </div>
 
           {/* Salario */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Salario *
             </label>
             <input name="salario" type="number" value={form.salario}
               onChange={handleChange} 
-              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed " : ""}`}
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-400 cursor-not-allowed bg-white" : "bg-white"}`}
               readOnly = {soloLectura}
               min={0} />
             {errores.salario && <p className={errorClass}>{errores.salario}</p>}
@@ -176,21 +175,21 @@ export default function FormularioEmpleado({empleadoInicial, soloLectura = false
 
           {/* Teléfono */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-400 mb-1">
               Teléfono
             </label>
             <input name="telefono" value={form.telefono ?? ""} onChange={handleChange}
-              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-500 cursor-not-allowed" : ""}`}  
+              className={`${inputClass} ${soloLectura ? "bg-gray-50 text-gray-400 cursor-not-allowed bg-white" : "bg-white"}`}  
               placeholder="+54 11 1234-5678"
               readOnly = {soloLectura} />
           </div>
 
           {/* Activo */}
-          <div className="flex items-center gap-2 mt-6">
+          <div className="flex items-center mt-6">
             <input name="activo" type="checkbox" checked={form.activo}
               onChange={handleChange} className={`${inputClass} ${soloLectura ? "w-4 h-4 accent-blue-600" : ""}`}
-              readOnly = {soloLectura}  />
-            <label className="text-sm font-medium text-gray-700">
+              disabled = {soloLectura}  />
+            <label className="text-sm font-medium text-white">
               Empleado activo
             </label>
           </div>
@@ -201,11 +200,11 @@ export default function FormularioEmpleado({empleadoInicial, soloLectura = false
           <div className="flex gap-3 mt-8">
             <button type="submit" disabled={guardando}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 
-                        rounded-lg font-medium disabled:opacity-50 transition-colors">
+                        rounded-lg font-medium disabled:opacity-50 transition-colors ">
               {guardando ? "Guardando..." : esEdicion ? "Guardar cambios" : "Crear empleado"}
             </button>
             <button type="button" onClick={() => router.back()}
-              className="border border-gray-300 text-gray-700 hover:bg-gray-50 
+              className="border border-gray-300 text-gray-400 hover:bg-gray-50 
                         px-6 py-2 rounded-lg font-medium transition-colors">
               Cancelar
             </button>
@@ -215,7 +214,7 @@ export default function FormularioEmpleado({empleadoInicial, soloLectura = false
         {soloLectura && (
           <div className="mt-8">
             <button type="button" onClick={() => router.back()}
-              className="border border-gray-300 text-gray-700 hover:bg-gray-50 
+              className="border border-gray-300 text-gray-400 hover:bg-gray-50 
                         px-6 py-2 rounded-lg font-medium transition-colors">
               Volver
             </button>

@@ -32,13 +32,13 @@ export default function FiltrosEmpleados({busqueda, departamento, onBusquedaChan
         placeholder="Buscar por nombre o cargo..." // texto gris que aparece cuando el campo está vacío
         value = {busqueda} // el valor que se va a buscar
         onChange={(e) => onBusquedaChange(e.target.value)} // Por si mismo, no cambia nada. Dice "el usuario escribio: <e.target.value>"
-        className="flex-1 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex-1 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
       />
       {/*Filtro por departamento*/}
       <select // desplegable HTML
         value={departamento} // valor seleccionado depende de la variable: departamento
         onChange={(e) => onDepartamentoChange(e.target.value)} // cuando elegis un dpto. ejecuta onDepartamentoChange(<eleccion>)
-        className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
       >
         <option value="">Todos los departamentos</option> {/*opcion por defecto*/}
         {departamentos.map((dep) => ( // map() recorre cada elemento del array de departamentos para mostrarlo en la lista para elegir
