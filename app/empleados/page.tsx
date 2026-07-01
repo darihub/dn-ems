@@ -74,7 +74,7 @@ export default function PaginaEmpleados() {
         {/*Encabezado*/}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2x1 font-bold text-gray-900">Empleados</h1>
+            <h1 className="text-2x1 font-bold text-gray-100">Empleados</h1>
             <p className="text-gray-500 text-sm mt-1">
               {empleadosFiltrados.length} de {empleados.length} empleados
             </p>
