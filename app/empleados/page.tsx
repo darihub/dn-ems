@@ -18,7 +18,7 @@ export default function PaginaEmpleados() {
   const [cargando, setCargando] = useState(true); // guarda un booleano
   const [busqueda, setBusqueda] = useState(""); // guarda un string.
   const [departamento, setDepartamento] = useState(""); // guarda un string.
-
+  const [estado, setEstado] = useState("");
   const { rol } = useAuth();
   const esAdmin = rol === "admin";
 
@@ -61,12 +61,11 @@ export default function PaginaEmpleados() {
 
   // Filtrado en el cliente: no hace otra llamada a Firebase, filtra el array que ya está en memoria.
   const empleadosFiltrados = empleados.filter((emp) => {
-    const coincideBusqueda = emp.nombre.toLowerCase().includes(busqueda.toLowerCase()) || emp.cargo.toLowerCase().includes(busqueda.toLowerCase());
-    // includes significa que incluye al menos una parte de lo que se busca. Es decir, si buscas "Juan", busqueda tiene parte de "Juan Perez".
+    const coincideBusqueda = busqueda === "" || emp.nombre.toLowerCase().includes(busqueda.toLowerCase());
     const coincideDepto = departamento === "" || emp.departamento === departamento;
-    // Si no se especifica un departamento, se muestran todos los empleados. Si se ingresa un dpto. se muestran solo los empleados de ese dpto.
+    const coincideEstado = estado === "" || (estado === "activo" && emp.activo) || (estado === "inactivo" && !emp.activo);
 
-    return coincideBusqueda && coincideDepto;
+    return coincideBusqueda && coincideDepto && coincideEstado;
   });
 
   return (
@@ -75,7 +74,7 @@ export default function PaginaEmpleados() {
         {/*Encabezado*/}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2x1 font-bold text-white">Empleados</h1>
+            <h1 className="text-2x1 font-bold text-gray-900">Empleados</h1>
             <p className="text-gray-500 text-sm mt-1">
               {empleadosFiltrados.length} de {empleados.length} empleados
             </p>
@@ -87,7 +86,7 @@ export default function PaginaEmpleados() {
             </Link>
           )}
           <button onClick={() => exportarCSV(empleadosFiltrados)}
-            className="text-gray-100 bg-green-600 hover:bg-green-700 hover:text-gray-100 hover:font-weight:700
+            className="text-gray-100 bg-green-600 hover:bg-green-700 hover:text-gray-100 hover:font-bold
                       px-4 py-2 rounded-lg font-medium transition-colors">
             Exportar CSV
           </button>
@@ -95,7 +94,7 @@ export default function PaginaEmpleados() {
           
         </div>
         {/*Filtros*/}
-        <FiltrosEmpleados busqueda={busqueda} departamento={departamento} onBusquedaChange={setBusqueda} onDepartamentoChange={setDepartamento}/>
+        <FiltrosEmpleados busqueda={busqueda} departamento={departamento} estado={estado} onBusquedaChange={setBusqueda} onDepartamentoChange={setDepartamento} onEstadoChange={setEstado}/>
         {/* Tabla o estado de carga */}
         {cargando ? (
           <Spinner texto="Cargando empleados espere un momento..." />

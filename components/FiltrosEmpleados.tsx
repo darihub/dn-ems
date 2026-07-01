@@ -6,8 +6,10 @@ import { Departamento } from "@/types/empleado";
 type Props = { // propiedades que recibirá el componente:
   busqueda: string; // un texto de busqueda
   departamento: string; // un departamento seleccionado
+  estado: string;
   onBusquedaChange: (valor: string) => void; // una función para cambiar la busqueda
   onDepartamentoChange: (valor: string) => void; // una función para cambiar el departamento
+  onEstadoChange: (valor: string) => void;
 };
 
 const departamentos: Departamento[] = [ // este arreglo contiene elementos del tipo Departamento
@@ -23,7 +25,7 @@ const departamentos: Departamento[] = [ // este arreglo contiene elementos del t
 // {busqueda, departamento, onBusquedaChange, onDepartamentoChange}: Props es "destructuring".
 // Sino, se escribiria: function FiltrosEmpleados(props: Props) 
 // y luego las cosas se llamarian como props.busqueda, props.departamento, etc.
-export default function FiltrosEmpleados({busqueda, departamento, onBusquedaChange, onDepartamentoChange}: Props) {
+export default function FiltrosEmpleados({busqueda, departamento, estado, onBusquedaChange, onDepartamentoChange, onEstadoChange}: Props) {
   return ( // comienza el JSX:
     <div className="flex flex-col sm:flex-row gap-3 mb-6">
       {/*Buscador por nombre*/}
@@ -46,6 +48,15 @@ export default function FiltrosEmpleados({busqueda, departamento, onBusquedaChan
             {dep}
           </option>
         ))}
+      </select>
+      {/*Filtro por estado (activo o inactivo)*/}
+      <select value={estado} onChange={(e) => onEstadoChange(e.target.value)}
+        className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900
+                  [&>option]:bg-white [&>option]:text-gray-900
+                  focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option value="">Todos</option>
+        <option value="activo">Activos</option>
+        <option value="inactivo">Inactivos</option>
       </select>
     </div>
   );
