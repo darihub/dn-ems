@@ -34,6 +34,26 @@ export default function PaginaEmpleados() {
     }
   }
 
+  function exportarCSV(empleados: Empleado[]) {
+    const encabezados = ["Nombre", "Email", "Cargo", "Departamento", "Fecha Ingreso", "Salario", "Estado"];
+    const filas = empleados.map(e => [
+      e.nombre, e.email, e.cargo, e.departamento,
+      e.fechaIngreso, e.salario, e.activo ? "Activo" : "Inactivo"
+    ]);
+  
+    const csv = [encabezados, ...filas]
+      .map(fila => fila.join(","))
+      .join("\n");
+    
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "empleados.csv";
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+
   // Se ejecuta una sola vez cuando la página carga
   useEffect(() => {cargarEmpleados();}, []);
   // useEffect() solo se ejecuta al cambiar el array de dependencias. Al estar vacio (es decir, []), está indicando que 
@@ -60,11 +80,19 @@ export default function PaginaEmpleados() {
               {empleadosFiltrados.length} de {empleados.length} empleados
             </p>
           </div>
-          {esAdmin && (
-            <Link href="/empleados/nuevo" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+          <div className="flex gap-4">
+            {esAdmin && (
+            <Link href="/empleados/nuevo" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors py-3">
               + Nuevo empleado
             </Link>
           )}
+          <button onClick={() => exportarCSV(empleadosFiltrados)}
+            className="text-gray-100 bg-green-600 hover:bg-green-700 hover:text-gray-100 hover:font-weight:700
+                      px-4 py-2 rounded-lg font-medium transition-colors">
+            Exportar CSV
+          </button>
+          </div>
+          
         </div>
         {/*Filtros*/}
         <FiltrosEmpleados busqueda={busqueda} departamento={departamento} onBusquedaChange={setBusqueda} onDepartamentoChange={setDepartamento}/>
