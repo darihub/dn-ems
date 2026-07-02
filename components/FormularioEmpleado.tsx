@@ -93,7 +93,7 @@ export default function FormularioEmpleado({empleadoInicial, soloLectura = false
         <Notificacion mensaje={notificacion.mensaje} tipo={notificacion.tipo} onCerrar={() => setNotificacion(null)}/>
       )}
       <form onSubmit={handleSubmit} className="max-w-2xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">
+        <h1 className="text-2xl font-bold text-gray-100 mb-6">
           {esEdicion ? "Editar empleado" : "Nuevo empleado"}
         </h1>
 

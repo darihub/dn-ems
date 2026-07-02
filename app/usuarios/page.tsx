@@ -26,7 +26,7 @@ export default function PaginaUsuarios() {
   return (
     <RutaProtegida soloAdmin={true}>
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Gestión de usuarios</h1>
+        <h1 className="text-2xl font-bold text-gray-100 mb-6">Gestión de usuarios</h1>
 
         {cargando ? (
           <Spinner texto="Cargando usuarios..." />
