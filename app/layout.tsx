@@ -1,6 +1,8 @@
-  import { AuthProvider } from "@/context/AuthContext";
-  import Navbar from "@/components/Navbar";
-  import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import Navbar from "@/components/Navbar";
+import "./globals.css";
+import { TemaProvider } from "@/context/TemaContext";
+import TemaWrapper from "@/components/TemaWrapper";
 
   export default function RootLayout({
     children,
@@ -12,10 +14,13 @@
       <html lang="es"> 
         <body>
           <AuthProvider>
-            <Navbar />
-            <main>{children}</main>
+            <TemaWrapper>
+              <Navbar />
+              <main>{children}</main>
+            </TemaWrapper>
           </AuthProvider>
-        </body>
-      </html>
-    )
-  }
+        </TemaProvider>
+      </body>
+    </html>
+  );
+}

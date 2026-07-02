@@ -6,9 +6,11 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Empleado } from "@/types/empleado";
 import FormularioEmpleado from "@/components/FormularioEmpleado";
+import PerfilEmpleado from "@/components/PerfilEmpleado";
 import RutaProtegida from "@/components/RutaProtegida";
 import Spinner from "@/components/Spinner";
 import { useAuth } from "@/context/AuthContext";
+
 
 export default function PaginaEmpleado({
   params,

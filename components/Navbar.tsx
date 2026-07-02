@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { logout } from "@/lib/auth";
+import { useTema } from "@/context/TemaContext";
 
 export default function Navbar(){
     const {usuario, rol, cargando} = useAuth();
     const router = useRouter();
+    const { tema, toggleTema } = useTema();
 
     async function handleLogout() {
         await logout();
@@ -32,6 +34,10 @@ export default function Navbar(){
             <Link href="/empleados" className="text-sm text-gray-600 hover:text-gray-900">
               Empleados
             </Link>
+            {rol === "admin" && (
+              <Link href="/usuarios" className="text-sm text-gray-600 hover:text-gray-900">
+                Usuarios
+              </Link>)}
             <div className="flex items-center gap-3">
               <span className="text-sm text-gray-500">{usuario.email}</span>
               {/* Badge de rol */}
@@ -41,6 +47,10 @@ export default function Navbar(){
                                 : "bg-gray-100 text-gray-600"}`}>
                 {rol}
               </span>
+              <button onClick={toggleTema}
+                className="text-sm text-gray-500 hover:text-gray-800">
+                {tema === "marron" ? "🍷 Vino" : "🪵 Marrón"}
+              </button>
               <button onClick={handleLogout}
                 className="text-sm text-red-600 hover:text-red-800">
                 Salir
