@@ -23,7 +23,7 @@ export default function Navbar(){
             <div className="max-w-7x1 mx-auto flex justify-between items-center">
                 {/* Logo / Nombre del sistema */}
                 <Link href="/" className="text-lg font-bold text-blue-600">
-                    HR System
+                    DNFlow
                 </Link>
 
                 {usuario ? (
