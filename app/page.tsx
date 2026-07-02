@@ -26,7 +26,42 @@ export default function Dashboard() {
   }, [usuario]);
 
   if (cargandoAuth || cargando) {
-    return <Spinner/>;
+    return (
+      <>
+          <section className="relative mx-auto overflow-hidden max-w-screen min-h-screen bg-[#252C68] text-white">
+            {/* Círculos decorativos */}
+            <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full border border-white/15 bg-white/10" />
+            <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-white/20" />
+            <div className="absolute bottom-0 left-0 h-70 w-70 rounded-full bg-white/20" />
+            <div className="absolute -bottom-20 -left-20 h-100 w-100 rounded-full border border-white/15 bg-white/10" />
+            
+            <div className="mx-auto flex min-h-[420px] max-w-7xl flex-col justify-center px-8 py-16">
+              {/* Logo */}
+              <span className="mb-8 text-4xl font-bold tracking-tight pt-25">
+                DNFlow
+              </span>
+
+              {/* Título */}
+              <h1 className="max-w-3xl font-serif text-6xl font-bold leading-tight">
+                Gestión de personal,
+                <br />
+                simple y en la nube.
+              </h1>
+
+              {/* Descripción */}
+              <p className="mt-8 max-w-2xl text-xl text-gray-200">
+                Una solución moderna para que tu empresa deje de gestionar empleados
+                en planillas de Excel.
+              </p>
+
+              {/* Footer */}
+              <p className="absolute bottom-0 right-0 mt-12 text-sm text-gray-300 px-100 py-30">
+                Dario · Nicolás — Seahub
+              </p>
+            </div>
+          </section>
+      </>
+    );
   }
 
   if (!usuario) {
