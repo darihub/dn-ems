@@ -4,10 +4,10 @@ import { db } from "@/lib/firebase";
 import { UsuarioApp, Rol } from "@/types/usuario";
 
 export async function getUsuarios(): Promise<UsuarioApp[]> {
-  const snap = await getDocs(collection(db, "Usuarios"));
-  return snap.docs.map(d => ({ ...d.data() } as UsuarioApp));
+  const snap = await getDocs(collection(db, "usuarios"));
+  return snap.docs.map(d => ({ uid:d.id, ...d.data(), } as UsuarioApp));
 }
 
 export async function cambiarRol(uid: string, nuevoRol: Rol): Promise<void> {
-  await updateDoc(doc(db, "Usuarios", uid), { rol: nuevoRol });
+  await updateDoc(doc(db, "usuarios", uid), { rol: nuevoRol });
 }
