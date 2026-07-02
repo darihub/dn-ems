@@ -11,8 +11,9 @@ import TemaWrapper from "@/components/TemaWrapper";
   }) {
     return (
       // {/* Definimos idioma*/}
-      <html lang="es"> 
-        <body>
+    <html lang="es"> 
+      <body>
+        <TemaProvider>
           <AuthProvider>
             <TemaWrapper>
               <Navbar />
