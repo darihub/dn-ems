@@ -49,7 +49,7 @@ export default function Navbar(){
               </span>
               <button onClick={toggleTema}
                 className="text-sm text-gray-500 hover:text-gray-800">
-                {tema === "marron" ? "🍷 Vino" : "🪵 Marrón"}
+                {tema === "marron" ? "🍷🗿 Formal" : "🍂 Hogareño"}
               </button>
               <button onClick={handleLogout}
                 className="text-sm text-red-600 hover:text-red-800">

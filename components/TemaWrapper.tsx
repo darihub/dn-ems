@@ -7,15 +7,15 @@ const temas = {
     fondo: "#2C1A0E",
     card: "#3D2410",
     borde: "#6B4226",
-    texto: "#E8C99A",
+    texto: "#6B4226",
     textoSecundario: "#C4956A",
   },
   vino: {
     fondo: "#1A0F12",
     card: "#261218",
     borde: "#5C2030",
-    texto: "#D4889A",
-    textoSecundario: "#C4788A",
+    texto: "#5C2030",
+    textoSecundario: "#643b45",
   },
 };
 
