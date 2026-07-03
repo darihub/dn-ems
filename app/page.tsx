@@ -25,7 +25,7 @@ export default function Dashboard() {
     });
   }, [usuario]);
 
-  if (cargandoAuth || cargando) {
+  if (cargando && !usuario) {
     return (
       <>
           <section className="relative mx-auto overflow-hidden max-w-screen min-h-screen bg-[#252C68] text-white">
@@ -62,6 +62,10 @@ export default function Dashboard() {
           </section>
       </>
     );
+  }
+
+  if (cargandoAuth) {
+    return (<Spinner></Spinner>)
   }
 
   if (!usuario) {
